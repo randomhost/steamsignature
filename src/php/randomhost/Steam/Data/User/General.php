@@ -166,9 +166,9 @@ class General
     /**
      * Last time the user was online as unix timestamp.
      *
-     * @var int
+     * @var null|\DateTime
      */
-    protected $lastLogoff = 0;
+    protected $lastLogoff = null;
 
     /**
      * Indicates if the profile allows public comments.
@@ -426,9 +426,10 @@ class General
     }
 
     /**
-     * Sets the last time the user was online as unix timestamp.
-     * 
-     * @param int $lastLogoff Last time the user was online as unix timestamp.
+     * Sets the last time the user was online as \DateTime object.
+     *
+     * @param null|\DateTime $lastLogoff Last time the user was online as
+     *                                   \DateTime object.
      *
      * @return $this
      */
@@ -440,9 +441,9 @@ class General
     }
 
     /**
-     * Returns the last time the user was online as unix timestamp.
+     * Returns the last time the user was online as \DateTime object.
      * 
-     * @return int
+     * @return null|\DateTime
      */
     public function getLastLogoff()
     {
