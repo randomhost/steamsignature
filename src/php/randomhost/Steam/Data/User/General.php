@@ -164,7 +164,7 @@ class General
     protected $profileState = false;
 
     /**
-     * Last time the user was online as unix timestamp.
+     * Last time the user was online as \DateTime object.
      *
      * @var null|\DateTime
      */
