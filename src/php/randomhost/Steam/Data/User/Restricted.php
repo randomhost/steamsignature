@@ -144,7 +144,7 @@ class Restricted
      *
      * @return $this
      */
-    public function setGameData($gameData)
+    public function setGameData(Game $gameData)
     {
         $this->gameData = $gameData;
 
@@ -170,7 +170,7 @@ class Restricted
      *
      * @return $this
      */
-    public function setLocationData($locationData)
+    public function setLocationData(Location $locationData)
     {
         $this->locationData = $locationData;
 
