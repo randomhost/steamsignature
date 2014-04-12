@@ -36,18 +36,18 @@ class Restricted
     protected $realName = '';
 
     /**
-     * Player's primary group.
+     * Player's primary group ID.
      *
-     * @var int
+     * @var string
      */
-    protected $primaryGroup = 0;
+    protected $primaryGroupId = '';
 
     /**
      * Time the player's account was created.
      *
-     * @var int
+     * @var null|\DateTime
      */
-    protected $timeCreated = 0;
+    protected $timeCreated = null;
 
     /**
      * Game data of the game the user is currently playing.
@@ -88,37 +88,37 @@ class Restricted
     }
 
     /**
-     * Sets the player's primary group.
+     * Sets the player's primary group ID.
      *
-     * @param int $primaryGroup Player's primary group.
+     * @param string $primaryGroup Player's primary group ID.
      *
      * @return $this
      */
-    public function setPrimaryGroup($primaryGroup)
+    public function setPrimaryGroupId($primaryGroup)
     {
-        $this->primaryGroup = $primaryGroup;
+        $this->primaryGroupId = $primaryGroup;
 
         return $this;
     }
 
     /**
-     * Returns the player's primary group.
+     * Returns the player's primary group ID.
      *
-     * @return int
+     * @return string
      */
-    public function getPrimaryGroup()
+    public function getPrimaryGroupId()
     {
-        return $this->primaryGroup;
+        return $this->primaryGroupId;
     }
 
     /**
      * Sets the time the player's account was created.
      *
-     * @param int $timeCreated Time the player's account was created.
+     * @param null|\DateTime $timeCreated Time the player's account was created.
      *
      * @return $this
      */
-    public function setTimeCreated($timeCreated)
+    public function setTimeCreated(\DateTime $timeCreated)
     {
         $this->timeCreated = $timeCreated;
 
@@ -128,7 +128,7 @@ class Restricted
     /**
      * Returns the time the player's account was created.
      *
-     * @return int
+     * @return null|\DateTime
      */
     public function getTimeCreated()
     {
