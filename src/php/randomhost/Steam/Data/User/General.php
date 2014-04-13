@@ -484,4 +484,15 @@ class General
         $visible = $this->getCommunityVisibilityState();
         return ($visible !== self::COMMUNITY_VISIBILITY_STATE_PUBLIC);
     }
+    
+    /**
+     * Returns whether the user is online or not.
+     * 
+     * @return bool
+     */
+    public function isOnline()
+    {
+        $state = $this->getPersonaState();
+        return ($state !== self::PERSONA_STATE_OFFLINE);
+    }
 }
