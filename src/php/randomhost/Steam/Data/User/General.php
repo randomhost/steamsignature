@@ -473,4 +473,15 @@ class General
     {
         return $this->commentPermission;
     }
+
+    /**
+     * Returns whether the user profile is private or not.
+     * 
+     * @return bool
+     */
+    public function isPrivateProfile()
+    {
+        $visible = $this->getCommunityVisibilityState();
+        return ($visible !== self::COMMUNITY_VISIBILITY_STATE_PUBLIC);
+    }
 }

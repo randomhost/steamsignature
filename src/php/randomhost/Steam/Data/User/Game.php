@@ -67,7 +67,7 @@ class Game
 
     /**
      * Returns the game ID of the game the user is currently playing.
-     * 
+     *
      * @return int
      */
     public function getId()
@@ -122,5 +122,33 @@ class Game
     public function getExtraInfo()
     {
         return $this->extraInfo;
+    }
+
+    /**
+     * Returns whether the current game session is a multiplayer game session.
+     *
+     * @return bool
+     */
+    public function isMultiplayer()
+    {
+        return ($this->getServerIp() !== '0.0.0.0:0');
+    }
+
+    /**
+     * Returns whether the current multiplayer session is joinable.
+     *
+     * @return bool
+     */
+    public function isJoinable()
+    {
+        if (!$this->isMultiplayer()) {
+            return false;
+        }
+        $ipAddress = parse_url($this->getServerIp());
+        return false !== filter_var(
+            $ipAddress['host'],
+            FILTER_VALIDATE_IP,
+            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+        );
     }
 } 
