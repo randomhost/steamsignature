@@ -84,7 +84,7 @@ class Profile
      */
     public function __construct(API $api, $id)
     {
-        if (!is_numeric($id)) {
+        if (!ctype_digit($id)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid Steam ID "%s". Use %s to resolve vanity URLs ' .
