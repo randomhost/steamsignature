@@ -88,7 +88,7 @@ class Profile
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid Steam ID "%s". Use %s to resolve vanity URLs ' .
-                    'into valid Steam IDs.',
+                    'into valid Steam IDs',
                     $id,
                     __CLASS__ . '::resolveVanityUrl(API $api, $vanityUrl)'
                 ),
