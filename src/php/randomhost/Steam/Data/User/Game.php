@@ -151,4 +151,17 @@ class Game
             FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
         );
     }
+
+    /**
+     * Returns a "steam://connect/" URL for the current multiplayer session.
+     * 
+     * @return string
+     */
+    public function getConnectURL()
+    {
+        if (!$this->isJoinable()) {
+            return '';
+        }
+        return 'steam://connect/' . $this->getServerIp();
+    }
 } 
