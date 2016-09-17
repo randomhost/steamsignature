@@ -1,35 +1,18 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
-/**
- * Signature class definition
- *
- * PHP version 5
- *
- * @category  Steam
- * @package   PHP_Steam_Signature
- * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      https://pear.random-host.com/
- */
 namespace randomhost\Steam;
 
-use randomhost\Steam\Data\User\Profile;
-use randomhost\Image\Image;
 use randomhost\Image\Color;
+use randomhost\Image\Image;
 use randomhost\Image\Text\Generic as Text;
+use randomhost\Steam\Dto\User\Profile;
 
 /**
  * Main class for displaying the Steam status signature images.
  *
- * @category  Steam
- * @package   PHP_Steam_Signature
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
+ * @copyright 2016 random-host.com
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   Release: @package_version@
- * @link      https://pear.random-host.com/
+ * @link      http://php-steam-signature.random-host.com
  */
 class Signature
 {
@@ -162,7 +145,7 @@ class Signature
     /**
      * Constructor for this class
      *
-     * @param API    $api      randomhost\Steam\API instance.
+     * @param API    $api      API instance.
      * @param string $id       A 64 bit Steam community ID.
      * @param string $imageDir Image directory.
      * @param string $fontsDir Fonts directory.
@@ -175,12 +158,14 @@ class Signature
         $this->cacheDir = $cacheDir;
 
         try {
-            $this->profile = new Profile($api, $id);
+            $this->profile = new Profile(
+                $api->fetchPlayerSummary($id)
+            );
             $this->prepareData();
         } catch (\RuntimeException $e) {
             $this->errorCode = $e->getCode();
             $this->errorMessage = $e->getMessage();
-            
+
             $this->prepareErrorMessage();
 
             if ($api::ERROR_TIMEOUT === $this->errorCode) {
@@ -188,7 +173,7 @@ class Signature
                 $this->statusText2 = 'Please try again later';
                 trigger_error($this->errorMessage, E_USER_WARNING);
             } elseif (!empty($this->errorCode)) {
-                $this->textXPosition = 8;
+                $this->textXPosition = 48;
                 $this->statusText1 = 'Please try again later';
                 trigger_error($this->errorMessage, E_USER_WARNING);
             }
@@ -196,13 +181,13 @@ class Signature
         } catch (\InvalidArgumentException $e) {
             $this->errorCode = $e->getCode();
             $this->errorMessage = $e->getMessage();
-            
+
             $this->prepareErrorMessage();
-            
+
             if ($api::ERROR_NOT_FOUND === $this->errorCode) {
                 $this->statusText1 = 'Please check Steam ID';
             } elseif (!empty($this->errorCode)) {
-                $this->textXPosition = 8;
+                $this->textXPosition = 48;
                 $this->statusText1 = 'Please try again later';
                 trigger_error($this->errorMessage, E_USER_WARNING);
             }
@@ -220,7 +205,6 @@ class Signature
      */
     protected static function shortenText($text, $chars = 40)
     {
-
         if (strlen($text) <= $chars) {
             return $text;
         }
@@ -237,7 +221,7 @@ class Signature
      * Renders the picture
      *
      * @return void
-     * 
+     *
      * @throws \Exception
      */
     public function render()
@@ -261,7 +245,6 @@ class Signature
 
             // insert box image
             if (!empty($this->boxImageName)) {
-
                 $this->boxImage = Image::getInstanceByPath(
                     $this->imageDir . $this->boxImageName
                 );
@@ -272,20 +255,24 @@ class Signature
             }
 
             // insert avatar image
-            if (!empty($this->profile)) {
+            try {
+                if (!empty($this->profile)) {
+                    $this->avatarImage = Image::getInstanceByPath(
+                        $this->profile->getDataUserGeneral()->getAvatar(),
+                        $this->cacheDir
+                    );
 
-                $this->avatarImage = Image::getInstanceByPath(
-                    $this->profile->getDataUserGeneral()->getAvatar(),
-                    $this->cacheDir
-                );
+                    $this->outputImage->merge($this->avatarImage, 8, 8);
 
-                $this->outputImage->merge($this->avatarImage, 8, 8);
-
-                unset($this->avatarImage);
+                    unset($this->avatarImage);
+                }
+            } catch (\RuntimeException $e) {
+                // avatar may be temporarily unavailable
+                trigger_error($e->getMessage(), E_USER_NOTICE);
             }
-            
+
             $text = new Text($this->outputImage);
-            
+
             // set text rendering options for header
             $text->setTextFont($this->fontsDir . 'DejaVuSans-Bold.ttf');
             $text->setTextColor($this->textColorHeader);
@@ -320,12 +307,10 @@ class Signature
             if (!empty($this->profile)
                 && !$this->profile->getDataUserGeneral()->isPrivateProfile()
             ) {
-
                 $game = $this->profile->getDataUserRestricted()->getGameData();
 
                 // insert connect image
                 if (!empty($game) && $game->isJoinable()) {
-
                     $this->connectImage = Image::getInstanceByPath(
                         $this->imageDir . 'connect.png'
                     );
@@ -393,7 +378,7 @@ class Signature
 
     /**
      * Parses the error code and fills the class properties accordingly.
-     * 
+     *
      * @return void
      */
     protected function prepareErrorMessage()

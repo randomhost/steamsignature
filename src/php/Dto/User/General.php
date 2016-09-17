@@ -1,30 +1,13 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
-/**
- * General class definition
- *
- * PHP version 5
- *
- * @category  Steam
- * @package   PHP_Steam_Signature
- * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      https://pear.random-host.com/
- */
-namespace randomhost\Steam\Data\User;
+namespace randomhost\Steam\Dto\User;
 
 /**
  * Represents public Steam user data
  *
- * @category  Steam
- * @package   PHP_Steam_Signature
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
+ * @copyright 2016 random-host.com
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   Release: @package_version@
- * @link      https://pear.random-host.com/
+ * @link      http://php-steam-signature.random-host.com
  */
 class General
 {
@@ -64,7 +47,7 @@ class General
             self::PERSONA_STATE_LOOKING_TO_TRADE => 'looking to trade',
             self::PERSONA_STATE_LOOKING_TO_PLAY => 'looking to play'
         );
-    
+
     /**
      * Mapping of community visibility state integer values to strings.
      *
@@ -379,17 +362,17 @@ class General
 
     /**
      * Returns whether the profile is visible or not.
-     * 
+     *
      * @return int
      */
     public function getCommunityVisibilityState()
     {
         return $this->communityVisibilityState;
     }
-    
+
     /**
      * Returns whether the profile is visible or not as human-readable string.
-     * 
+     *
      * @return int
      */
     public function getCommunityVisibilityStateString()
@@ -403,7 +386,7 @@ class General
 
     /**
      * Sets if the user has a community profile configured.
-     * 
+     *
      * @param boolean $profileState If the user has a community profile configured.
      *
      * @return $this
@@ -417,7 +400,7 @@ class General
 
     /**
      * Returns if the user has a community profile configured.
-     * 
+     *
      * @return boolean
      */
     public function getProfileState()
@@ -442,7 +425,7 @@ class General
 
     /**
      * Returns the last time the user was online as \DateTime object.
-     * 
+     *
      * @return null|\DateTime
      */
     public function getLastLogoff()
@@ -452,7 +435,7 @@ class General
 
     /**
      * Sets if the profile allows public comments.
-     * 
+     *
      * @param boolean $commentPermission If the profile allows public comments.
      *
      * @return $this
@@ -466,7 +449,7 @@ class General
 
     /**
      * Returns if the profile allows public comments.
-     * 
+     *
      * @return boolean
      */
     public function getCommentPermission()
@@ -476,7 +459,7 @@ class General
 
     /**
      * Returns whether the user profile is private or not.
-     * 
+     *
      * @return bool
      */
     public function isPrivateProfile()
@@ -484,10 +467,10 @@ class General
         $visible = $this->getCommunityVisibilityState();
         return ($visible !== self::COMMUNITY_VISIBILITY_STATE_PUBLIC);
     }
-    
+
     /**
      * Returns whether the user is online or not.
-     * 
+     *
      * @return bool
      */
     public function isOnline()

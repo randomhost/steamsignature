@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
-<!-- vim: set softtabstop=2 tabstop=2 shiftwidth=2 expandtab: -->
-<phpunit bootstrap="src/tests/unit-tests/bootstrap.php">
+<phpunit bootstrap="src/tests/bootstrap.php">
     <testsuites>
-        <testsuite name="Unit Tests">
+        <testsuite name="Unit_Tests">
             <directory suffix="Test.php">src/tests/unit-tests</directory>
+        </testsuite>
+    </testsuites>
+    <testsuites>
+        <testsuite name="Functional_Tests">
+            <directory suffix="Test.php">src/tests/functional-tests</directory>
         </testsuite>
     </testsuites>
     <filter>

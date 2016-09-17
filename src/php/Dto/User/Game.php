@@ -1,30 +1,13 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
-/**
- * Game class definition
- *
- * PHP version 5
- *
- * @category  Steam
- * @package   PHP_Steam_Signature
- * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      https://pear.random-host.com/
- */
-namespace randomhost\Steam\Data\User;
+namespace randomhost\Steam\Dto\User;
 
 /**
  * Represents private Steam user game data
  *
- * @category  Steam
- * @package   PHP_Steam_Signature
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
+ * @copyright 2016 random-host.com
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   Release: @package_version@
- * @link      https://pear.random-host.com/
+ * @link      http://php-steam-signature.random-host.com
  */
 class Game
 {
@@ -154,7 +137,7 @@ class Game
 
     /**
      * Returns a "steam://connect/" URL for the current multiplayer session.
-     * 
+     *
      * @return string
      */
     public function getConnectURL()
@@ -164,4 +147,4 @@ class Game
         }
         return 'steam://connect/' . $this->getServerIp();
     }
-} 
+}

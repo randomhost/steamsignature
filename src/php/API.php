@@ -1,30 +1,13 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
-/**
- * API class definition
- *
- * PHP version 5
- *
- * @category  Steam
- * @package   PHP_Steam_Signature
- * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      https://pear.random-host.com/
- */
 namespace randomhost\Steam;
 
 /**
  * Provides methods for retrieving data from the Steam Web API.
  *
- * @category  Steam
- * @package   PHP_Steam_Signature
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2014 random-host.com
+ * @copyright 2016 random-host.com
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   Release: @package_version@
- * @link      https://pear.random-host.com/
+ * @link      http://php-steam-signature.random-host.com
  */
 class API
 {
@@ -106,7 +89,7 @@ class API
             $this->setMemcached($memcached);
         }
     }
-    
+
     /**
      * Sets the Steam Web API key.
      *
@@ -123,7 +106,7 @@ class API
 
     /**
      * Returns the Steam Web API key.
-     * 
+     *
      * @return string
      */
     public function getKey()
@@ -147,7 +130,7 @@ class API
 
     /**
      * Returns the \Memcached instance to be used for caching data.
-     * 
+     *
      * @return \Memcached|null
      */
     public function getMemcached()
@@ -171,7 +154,7 @@ class API
 
     /**
      * Returns whether a given \Memcached instance should be used or not.
-     * 
+     *
      * @return boolean
      */
     public function getMemcachedUsage()
@@ -206,7 +189,6 @@ class API
         );
         $data = $this->request($requestUrl);
         if (!isset($data->steamid)) {
-
             if (isset($data->message) && $data->message === 'No match') {
                 throw new \InvalidArgumentException(
                     sprintf(
@@ -225,7 +207,7 @@ class API
                 self::ERROR_BAD_RESPONSE
             );
         }
-        $steamId = (string) $data->steamid;
+        $steamId = (string)$data->steamid;
 
         $this->setMemcachedValue($mcKey, $steamId, 60 * 60 * 24 * 15);
 
@@ -234,7 +216,7 @@ class API
 
     /**
      * Fetches player summary data.
-     * 
+     *
      * @param string $steamId A 64 bit Steam community ID.
      *
      * @return \stdClass
@@ -271,7 +253,7 @@ class API
         }
         return $playerSummary;
     }
-    
+
     /**
      * Appends configured prefixes and returns the Memcached key to be used.
      *
@@ -337,7 +319,10 @@ class API
      * @return string
      */
     protected function buildRequestUrl(
-        $interface, $method, $version, array $params
+        $interface,
+        $method,
+        $version,
+        array $params
     ) {
         return sprintf(
             '%1$s/%2$s/%3$s/v%4$u/?format=%5$s&key=%6$s&%7$s',
@@ -361,7 +346,7 @@ class API
      */
     protected function request($url)
     {
-        $data = file_get_contents($url);
+        $data = @file_get_contents($url);
         if (empty($data)) {
             if (empty($http_response_header)) {
                 throw new \RuntimeException(
@@ -408,4 +393,4 @@ class API
 
         return $result->response;
     }
-} 
+}

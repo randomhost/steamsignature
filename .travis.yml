@@ -1,12 +1,8 @@
 language: php
 php:
+  - "5.6"
+  - "5.5"
   - "5.4"
   - "5.3"
 before_script:
-  - pear config-set auto_discover 1
-  - pear channel-discover pear.phix-project.org
-  - pear install pear.phpunit.de/phpcpd
-  - pear install pear.phpunit.de/PHPUnit-3.7.33
-  - pear install -Ba phix/phix4componentdev
-  - phpenv rehash
-  - phing build-vendor
+  - composer install
