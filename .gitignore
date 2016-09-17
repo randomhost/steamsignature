@@ -1,0 +1,6 @@
+.build
+.idea
+.tmp
+nbproject
+review
+vendor

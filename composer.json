@@ -1,0 +1,36 @@
+{
+    "name": "randomhost/steamsignature",
+    "type": "library",
+    "description": "Displays the online status of Steam players as PNG image.",
+    "keywords": [
+        "Image",
+        "Webcam"
+    ],
+    "homepage": "https://www.random-host.com",
+    "license": "New-BSD",
+    "authors": [
+        {
+            "name": "Ch'Ih-Yu",
+            "email": "chi-yu@web.de"
+        }
+    ],
+    "config": {
+        "platform": {
+            "php": "5.3.3"
+        }
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "randomhost/image": "~1.0"
+    },
+    "require-dev": {
+        "behat/behat": "~2.0",
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "randomhost\\Steam\\": "src/php/"
+        }
+    }
+}

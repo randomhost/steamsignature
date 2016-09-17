@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  #RewriteBase /steam/
+  RewriteCond %{REQUEST_URI} !index\.php
+  RewriteRule ^profilesig/([a-zA-Z0-9\-_]+)\.png$ index.php\?id=$1&action=img&rewrite=1 [QSA]
+  RewriteRule ^profilesig/([a-zA-Z0-9\-_]+)/go$ index.php\?id=$1&action=go&rewrite=1 [QSA]
+</IfModule>
