@@ -11,8 +11,6 @@ namespace randomhost\Steam;
 
 require_once realpath(__DIR__ . '/../../vendor') . '/autoload.php';
 
-ini_set('display_errors', false);
-
 // initialize parameters with default values
 $steamId = '76561197963139525';
 $action = 'img';
@@ -45,7 +43,6 @@ $api = new API($key, $memcached);
 if (!empty($_GET['id'])) {
     $steamId = trim($_GET['id']);
 }
-
 if (!empty($_GET['action'])) {
     $action = trim($_GET['action']);
 }
