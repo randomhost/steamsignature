@@ -61,7 +61,7 @@ if (!ctype_digit($steamId)) {
         $params = http_build_query($params);
         $url = sprintf(
             'http%s://%s%s?%s',
-            (!empty($_SERVER['SSL'])) ? 's' : '',
+            (!empty($_SERVER['HTTPS'])) ? 's' : '',
             $_SERVER['HTTP_HOST'],
             $_SERVER['SCRIPT_NAME'],
             $params
@@ -74,7 +74,7 @@ if (!ctype_digit($steamId)) {
         }
         $url = sprintf(
             'http%s://%s%s/profilesig/%s',
-            (!empty($_SERVER['SSL'])) ? 's' : '',
+            (!empty($_SERVER['HTTPS'])) ? 's' : '',
             $_SERVER['HTTP_HOST'],
             dirname($_SERVER['SCRIPT_NAME']),
             $params
