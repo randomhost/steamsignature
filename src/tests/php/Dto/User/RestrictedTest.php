@@ -1,18 +1,27 @@
 <?php
-namespace randomhost\Steam\Dto\User;
+
+declare(strict_types=1);
+
+namespace randomhost\Steam\Tests\Dto\User;
+
+use PHPUnit\Framework\TestCase;
+use randomhost\Steam\Dto\User\Game;
+use randomhost\Steam\Dto\User\Location;
+use randomhost\Steam\Dto\User\Restricted;
 
 /**
- * Unit test for Restricted
+ * Unit test for {@see Restricted}.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
-class RestrictedTest extends \PHPUnit_Framework_TestCase
+class RestrictedTest extends TestCase
 {
     /**
-     * Tests Restricted::setRealName() and Restricted::getRealName().
+     * Tests {@see Restricted::setRealName()} and {@see Restricted::getRealName()}.
      */
     public function testSetGetRealName()
     {
@@ -21,11 +30,11 @@ class RestrictedTest extends \PHPUnit_Framework_TestCase
         $restricted = new Restricted();
 
         $this->assertSame($restricted, $restricted->setRealName($realName));
-        $this->assertEquals($realName, $restricted->getRealName());
+        $this->assertSame($realName, $restricted->getRealName());
     }
 
     /**
-     * Tests Restricted::setPrimaryGroupId() and Restricted::getPrimaryGroupId().
+     * Tests {@see Restricted::setPrimaryGroupId()} and {@see Restricted::getPrimaryGroupId()}.
      */
     public function testSetGetPrimaryGroupId()
     {
@@ -34,11 +43,11 @@ class RestrictedTest extends \PHPUnit_Framework_TestCase
         $restricted = new Restricted();
 
         $this->assertSame($restricted, $restricted->setPrimaryGroupId($primaryGroupId));
-        $this->assertEquals($primaryGroupId, $restricted->getPrimaryGroupId());
+        $this->assertSame($primaryGroupId, $restricted->getPrimaryGroupId());
     }
 
     /**
-     * Tests Restricted::setTimeCreated() and Restricted::getTimeCreated().
+     * Tests {@see Restricted::setTimeCreated()} and {@see Restricted::getTimeCreated()}.
      */
     public function testSetTimeCreated()
     {
@@ -52,15 +61,14 @@ class RestrictedTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Restricted::setGameData() and Restricted::getGameData().
+     * Tests {@see Restricted::setGameData()} and {@see Restricted::getGameData()}.
      */
     public function testSetGetGameData()
     {
         /**
          * @var Game $gameData Game instance.
          */
-        $gameData = $this->getMockBuilder('randomhost\\Steam\\Dto\\User\\Game')
-            ->getMock();
+        $gameData = $this->getMockBuilder(Game::class)->getMock();
 
         $restricted = new Restricted();
 
@@ -69,15 +77,14 @@ class RestrictedTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Restricted::setLocationData() and Restricted::getLocationData().
+     * Tests {@see Restricted::setLocationData()} and {@see Restricted::getLocationData()}.
      */
     public function testSetGetLocationData()
     {
         /**
          * @var Location $gameData Location instance.
          */
-        $gameData = $this->getMockBuilder('randomhost\\Steam\\Dto\\User\\Location')
-            ->getMock();
+        $gameData = $this->getMockBuilder(Location::class)->getMock();
 
         $restricted = new Restricted();
 

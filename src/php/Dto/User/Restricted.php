@@ -1,13 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 namespace randomhost\Steam\Dto\User;
 
 /**
- * Represents private Steam user data
+ * Represents private Steam user data.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
 class Restricted
 {
@@ -30,30 +34,28 @@ class Restricted
      *
      * @var null|\DateTime
      */
-    protected $timeCreated = null;
+    protected $timeCreated;
 
     /**
      * Game data of the game the user is currently playing.
      *
-     * @var Game|null
+     * @var null|Game
      */
-    protected $gameData = null;
+    protected $gameData;
 
     /**
      * Player's location data.
      *
-     * @var Location|null
+     * @var null|Location
      */
-    protected $locationData = null;
+    protected $locationData;
 
     /**
      * Sets the player's "Real Name".
      *
      * @param string $realName Player's "Real Name".
-     *
-     * @return $this
      */
-    public function setRealName($realName)
+    public function setRealName(string $realName): self
     {
         $this->realName = $realName;
 
@@ -62,10 +64,8 @@ class Restricted
 
     /**
      * Returns the player's "Real Name".
-     *
-     * @return string
      */
-    public function getRealName()
+    public function getRealName(): string
     {
         return $this->realName;
     }
@@ -74,10 +74,8 @@ class Restricted
      * Sets the player's primary group ID.
      *
      * @param string $primaryGroup Player's primary group ID.
-     *
-     * @return $this
      */
-    public function setPrimaryGroupId($primaryGroup)
+    public function setPrimaryGroupId(string $primaryGroup): self
     {
         $this->primaryGroupId = $primaryGroup;
 
@@ -86,10 +84,8 @@ class Restricted
 
     /**
      * Returns the player's primary group ID.
-     *
-     * @return string
      */
-    public function getPrimaryGroupId()
+    public function getPrimaryGroupId(): string
     {
         return $this->primaryGroupId;
     }
@@ -98,10 +94,8 @@ class Restricted
      * Sets the time the player's account was created.
      *
      * @param null|\DateTime $timeCreated Time the player's account was created.
-     *
-     * @return $this
      */
-    public function setTimeCreated(\DateTime $timeCreated)
+    public function setTimeCreated(\DateTime $timeCreated): self
     {
         $this->timeCreated = $timeCreated;
 
@@ -110,10 +104,8 @@ class Restricted
 
     /**
      * Returns the time the player's account was created.
-     *
-     * @return null|\DateTime
      */
-    public function getTimeCreated()
+    public function getTimeCreated(): ?\DateTime
     {
         return $this->timeCreated;
     }
@@ -122,10 +114,8 @@ class Restricted
      * Sets the game data of the game the user is currently playing.
      *
      * @param null|Game $gameData Game data of the game the user is currently playing.
-     *
-     * @return $this
      */
-    public function setGameData(Game $gameData)
+    public function setGameData(Game $gameData): self
     {
         $this->gameData = $gameData;
 
@@ -134,10 +124,8 @@ class Restricted
 
     /**
      * Returns the game data of the game the user is currently playing.
-     *
-     * @return null|Game
      */
-    public function getGameData()
+    public function getGameData(): ?Game
     {
         return $this->gameData;
     }
@@ -145,11 +133,9 @@ class Restricted
     /**
      * Sets the player's location data.
      *
-     * @param null|Location $locationData  Player's location data.
-     *
-     * @return $this
+     * @param null|Location $locationData Player's location data.
      */
-    public function setLocationData(Location $locationData)
+    public function setLocationData(Location $locationData): self
     {
         $this->locationData = $locationData;
 
@@ -158,10 +144,8 @@ class Restricted
 
     /**
      * Returns the player's location data.
-     *
-     * @return null|Location
      */
-    public function getLocationData()
+    public function getLocationData(): ?Location
     {
         return $this->locationData;
     }

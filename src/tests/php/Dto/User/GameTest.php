@@ -1,18 +1,25 @@
 <?php
-namespace randomhost\Steam\Dto\User;
+
+declare(strict_types=1);
+
+namespace randomhost\Steam\Tests\Dto\User;
+
+use PHPUnit\Framework\TestCase;
+use randomhost\Steam\Dto\User\Game;
 
 /**
- * Unit test for Game
+ * Unit test for {@see Game}.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
-class GameTest extends \PHPUnit_Framework_TestCase
+class GameTest extends TestCase
 {
     /**
-     * Tests Game::setId() and Game::getId().
+     * Tests {@see Game::setId()} and {@see Game::getId()}.
      */
     public function testSetGetId()
     {
@@ -21,11 +28,11 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $game = new Game();
 
         $this->assertSame($game, $game->setId($id));
-        $this->assertEquals($id, $game->getId());
+        $this->assertSame($id, $game->getId());
     }
 
     /**
-     * Tests Game::setServerIp() and Game::getServerIp().
+     * Tests {@see Game::setServerIp()} and {@see Game::getServerIp()}.
      */
     public function testSetGetServerIp()
     {
@@ -34,11 +41,11 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $game = new Game();
 
         $this->assertSame($game, $game->setServerIp($serverIp));
-        $this->assertEquals($serverIp, $game->getServerIp());
+        $this->assertSame($serverIp, $game->getServerIp());
     }
 
     /**
-     * Tests Game::setExtraInfo() and Game::getExtraInfo().
+     * Tests {@see Game::setExtraInfo()} and {@see Game::getExtraInfo()}.
      */
     public function testSetGetExtraInfo()
     {
@@ -47,11 +54,11 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $game = new Game();
 
         $this->assertSame($game, $game->setExtraInfo($extraInfo));
-        $this->assertEquals($extraInfo, $game->getExtraInfo());
+        $this->assertSame($extraInfo, $game->getExtraInfo());
     }
 
     /**
-     * Tests Game::isMultiplayer().
+     * Tests {@see Game::isMultiplayer()}.
      */
     public function testIsMultiplayer()
     {
@@ -66,7 +73,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Game::isJoinable().
+     * Tests {@see Game::isJoinable()}.
      */
     public function testIsJoinable()
     {
@@ -85,7 +92,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests Game::getConnectURL().
+     * Tests {@see Game::getConnectURL()}.
      */
     public function testGetConnectURLFormat()
     {
@@ -97,11 +104,11 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($game->isJoinable());
 
         $this->assertSame($game, $game->setServerIp($serverIpLocal));
-        $this->assertEquals('', $game->getConnectURL());
+        $this->assertSame('', $game->getConnectURL());
 
         $this->assertSame($game, $game->setServerIp($serverIpExternal));
-        $this->assertEquals(
-            'steam://connect/' . $serverIpExternal,
+        $this->assertSame(
+            'steam://connect/'.$serverIpExternal,
             $game->getConnectURL()
         );
     }
