@@ -1,9 +1,17 @@
-[![Build Status][0]][1]
+[![Build Status][1]][2]
 
-randomhost/steamsignature
-=========================
+# randomhost/steamsignature
 
-This package reads the [Steam Web-API][2] and [community XML data][3] of Valve's
+<!-- TOC -->
+* [1. Purpose](#1-purpose)
+* [2. Example](#2-example)
+* [3. Usage](#3-usage)
+* [4. License](#4-license)
+<!-- TOC -->
+
+## 1. Purpose
+
+This package reads the [Steam Web-API][3] and [community XML data][4] of Valve's
 Steam platform and displays the current online status of players as PNG image,
 designed to be used in forum and blog signatures.
 
@@ -12,14 +20,21 @@ on a multiplayer server and returns either the URL to the player's steam profile
 or the URL for joining the game using the visitor's locally installed Steam
 client if this is supported by the game.
 
-Usage
------
+## 2. Example
+
+[![Example Signature][5]][6]
+
+## 3. Usage
 
 A basic approach at using this package could look like this:
 
 ```php
 <?php
-namespace randomhost\Steam;
+
+declare(strict_types=1);
+
+use randomhost\Steam\API;
+use randomhost\Steam\Signature;
 
 require_once '/path/to/vendor/autoload.php';
 
@@ -47,7 +62,7 @@ $signature->getLinkTarget();
 The example above should be mostly self-explanatory.
 
 The `API` class must be initialized with a personalized API key. You can obtain
-your API key from the [Steam developer website][4].
+your API key from the [Steam developer website][7].
 
 The `API` class is a very limited implementation of the Steam Web-API and is not
 supposed to be used directly, except for one method:
@@ -72,15 +87,18 @@ The `Signature` class provides two public methods:
     game the user is currently playing if the game supports joining through
     Steam.
  
-An example implementation of this script can be found in the `src/www/` folder.
+An example implementation of this script can be found in the [`src/www/`](src/www)
+folder.
 
-License
--------
+## 4. License
 
 See LICENSE.txt for full license details.
 
-[0]: https://travis-ci.org/randomhost/steamsignature.svg
-[1]: https://travis-ci.org/randomhost/steamsignature
-[2]: https://developer.valvesoftware.com/wiki/Steam_Web_API
-[3]: https://partner.steamgames.com/documentation/community_data
-[4]: http://steamcommunity.com/dev
+
+[1]: https://github.com/randomhost/steamsignature/actions/workflows/php.yml/badge.svg
+[2]: https://github.com/randomhost/steamsignature/actions/workflows/php.yml
+[3]: https://developer.valvesoftware.com/wiki/Steam_Web_API
+[4]: https://partner.steamgames.com/documentation/community_data
+[5]: src/data/images/example.png
+[6]: https://steamcommunity.com/id/randomhosttv
+[7]: http://steamcommunity.com/dev

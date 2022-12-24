@@ -1,13 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 namespace randomhost\Steam\Dto\User;
 
 /**
  * Represents a Steam user profile available under a 64 bit Steam community id.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
 class Profile
 {
@@ -16,19 +20,21 @@ class Profile
      *
      * @var null|General
      */
-    protected $dataUserGeneral = null;
+    protected $dataUserGeneral;
 
     /**
      * Restricted instance.
      *
      * @var null|Restricted
      */
-    protected $dataUserRestricted = null;
+    protected $dataUserRestricted;
 
     /**
      * Constructor for this class.
      *
      * @param \stdClass $data \stdClass instance holding data.
+     *
+     * @throws \Exception
      */
     public function __construct(\stdClass $data)
     {
@@ -38,20 +44,16 @@ class Profile
 
     /**
      * Returns general user data.
-     *
-     * @return null|General
      */
-    public function getDataUserGeneral()
+    public function getDataUserGeneral(): ?General
     {
         return $this->dataUserGeneral;
     }
 
     /**
      * Returns restricted user data.
-     *
-     * @return null|Restricted
      */
-    public function getDataUserRestricted()
+    public function getDataUserRestricted(): ?Restricted
     {
         return $this->dataUserRestricted;
     }
@@ -61,9 +63,9 @@ class Profile
      *
      * @param \stdClass $data \stdClass instance holding data.
      *
-     * @return void
+     * @throws \Exception
      */
-    protected function fetchDataUserGeneral(\stdClass $data)
+    protected function fetchDataUserGeneral(\stdClass $data): void
     {
         $this->dataUserGeneral = new General();
         $this->dataUserGeneral
@@ -76,8 +78,14 @@ class Profile
             ->setPersonaState($data->personastate)
             ->setCommunityVisibilityState($data->communityvisibilitystate)
             ->setProfileState(!empty($data->profilestate))
-            ->setLastLogoff(new \DateTime('@' . $data->lastlogoff))
-            ->setCommentPermission(!empty($data->commentpermission));
+            ->setCommentPermission(!empty($data->commentpermission))
+        ;
+
+        if (isset($data->lastlogoff)) {
+            $this->dataUserGeneral
+                ->setLastLogoff(new \DateTime('@'.$data->lastlogoff))
+            ;
+        }
     }
 
     /**
@@ -85,9 +93,9 @@ class Profile
      *
      * @param \stdClass $data \stdClass instance holding data.
      *
-     * @return void
+     * @throws \Exception
      */
-    protected function fetchDataUserRestricted(\stdClass $data)
+    protected function fetchDataUserRestricted(\stdClass $data): void
     {
         if (!empty($this->dataUserGeneral)
             && !$this->dataUserGeneral->isPrivateProfile()
@@ -107,7 +115,7 @@ class Profile
 
             if (!empty($data->timecreated)) {
                 $this->dataUserRestricted->setTimeCreated(
-                    new \DateTime('@' . $data->timecreated)
+                    new \DateTime('@'.$data->timecreated)
                 );
             }
 
@@ -121,7 +129,7 @@ class Profile
                 $locationData->setStateCode($data->locstatecode);
             }
             if (!empty($data->loccityid)) {
-                $locationData->setCityName($data->loccityid);
+                $locationData->setCityId($data->loccityid);
             }
 
             $this->dataUserRestricted->setLocationData($locationData);

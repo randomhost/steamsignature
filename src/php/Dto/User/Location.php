@@ -1,13 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 namespace randomhost\Steam\Dto\User;
 
 /**
- * Represents private Steam user location data
+ * Represents private Steam user location data.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
 class Location
 {
@@ -30,16 +34,14 @@ class Location
      *
      * @var int
      */
-    protected $cityName = '';
+    protected $cityId = 0;
 
     /**
      * Sets the user's country of residence (ISO country code).
      *
      * @param string $countryCode User's country of residence (ISO country code).
-     *
-     * @return $this
      */
-    public function setCountryCode($countryCode)
+    public function setCountryCode(string $countryCode): self
     {
         $this->countryCode = $countryCode;
 
@@ -48,10 +50,8 @@ class Location
 
     /**
      * Returns the user's country of residence (ISO country code).
-     *
-     * @return string
      */
-    public function getCountryCode()
+    public function getCountryCode(): string
     {
         return $this->countryCode;
     }
@@ -60,10 +60,8 @@ class Location
      * Sets the user's state of residence.
      *
      * @param string $stateCode User's state of residence.
-     *
-     * @return $this
      */
-    public function setStateCode($stateCode)
+    public function setStateCode(string $stateCode): self
     {
         $this->stateCode = $stateCode;
 
@@ -72,10 +70,8 @@ class Location
 
     /**
      * Returns the user's state of residence.
-     *
-     * @return string
      */
-    public function getStateCode()
+    public function getStateCode(): string
     {
         return $this->stateCode;
     }
@@ -83,24 +79,20 @@ class Location
     /**
      * Sets the user's city of residence.
      *
-     * @param int $cityName User's city of residence.
-     *
-     * @return $this
+     * @param int $cityId User's city of residence.
      */
-    public function setCityName($cityName)
+    public function setCityId(int $cityId): self
     {
-        $this->cityName = $cityName;
+        $this->cityId = $cityId;
 
         return $this;
     }
 
     /**
      * Returns the user's city of residence.
-     *
-     * @return int
      */
-    public function getCityName()
+    public function getCityId(): int
     {
-        return $this->cityName;
+        return $this->cityId;
     }
 }

@@ -1,13 +1,17 @@
 <?php
+
+declare(strict_types=1);
+
 namespace randomhost\Steam\Dto\User;
 
 /**
- * Represents public Steam user data
+ * Represents public Steam user data.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
 class General
 {
@@ -16,21 +20,21 @@ class General
      *
      * @var int
      */
-    const PERSONA_STATE_OFFLINE = 0;
-    const PERSONA_STATE_ONLINE = 1;
-    const PERSONA_STATE_BUSY = 2;
-    const PERSONA_STATE_AWAY = 3;
-    const PERSONA_STATE_SNOOZE = 4;
-    const PERSONA_STATE_LOOKING_TO_TRADE = 5;
-    const PERSONA_STATE_LOOKING_TO_PLAY = 6;
+    public const PERSONA_STATE_OFFLINE = 0;
+    public const PERSONA_STATE_ONLINE = 1;
+    public const PERSONA_STATE_BUSY = 2;
+    public const PERSONA_STATE_AWAY = 3;
+    public const PERSONA_STATE_SNOOZE = 4;
+    public const PERSONA_STATE_LOOKING_TO_TRADE = 5;
+    public const PERSONA_STATE_LOOKING_TO_PLAY = 6;
 
     /**
      * Community visibility state constants.
      *
      * @var int
      */
-    const COMMUNITY_VISIBILITY_STATE_PRIVATE = 1;
-    const COMMUNITY_VISIBILITY_STATE_PUBLIC = 3;
+    public const COMMUNITY_VISIBILITY_STATE_PRIVATE = 1;
+    public const COMMUNITY_VISIBILITY_STATE_PUBLIC = 3;
 
     /**
      * Mapping of persona state integer values to strings.
@@ -38,15 +42,15 @@ class General
      * @var array
      */
     protected static $personaStateMapping
-        = array(
+        = [
             self::PERSONA_STATE_OFFLINE => 'offline',
             self::PERSONA_STATE_ONLINE => 'online',
             self::PERSONA_STATE_BUSY => 'busy',
             self::PERSONA_STATE_AWAY => 'away',
             self::PERSONA_STATE_SNOOZE => 'snooze',
             self::PERSONA_STATE_LOOKING_TO_TRADE => 'looking to trade',
-            self::PERSONA_STATE_LOOKING_TO_PLAY => 'looking to play'
-        );
+            self::PERSONA_STATE_LOOKING_TO_PLAY => 'looking to play',
+        ];
 
     /**
      * Mapping of community visibility state integer values to strings.
@@ -54,10 +58,10 @@ class General
      * @var array
      */
     protected static $communityVisibilityStateMapping
-        = array(
+        = [
             self::COMMUNITY_VISIBILITY_STATE_PRIVATE => 'private',
             self::COMMUNITY_VISIBILITY_STATE_PUBLIC => 'public',
-        );
+        ];
 
     /**
      * 64bit SteamID of the user.
@@ -69,7 +73,7 @@ class General
     protected $steamId = '';
 
     /**
-     * Users's display name.
+     * User's display name.
      *
      * @var string
      */
@@ -101,7 +105,7 @@ class General
     protected $avatarMedium = '';
 
     /**
-     * Full URL of the users's 184x184px avatar.
+     * Full URL of the user's 184x184px avatar.
      *
      * If the user hasn't configured an avatar, this will be the default ? avatar.
      *
@@ -151,7 +155,7 @@ class General
      *
      * @var null|\DateTime
      */
-    protected $lastLogoff = null;
+    protected $lastLogoff;
 
     /**
      * Indicates if the profile allows public comments.
@@ -164,10 +168,8 @@ class General
      * Sets the 64bit SteamID of the user.
      *
      * @param string $steamId 64bit SteamID of the user.
-     *
-     * @return $this
      */
-    public function setSteamId($steamId)
+    public function setSteamId(string $steamId): self
     {
         $this->steamId = $steamId;
 
@@ -176,22 +178,18 @@ class General
 
     /**
      * Returns the 64bit SteamID of the user.
-     *
-     * @return string
      */
-    public function getSteamId()
+    public function getSteamId(): string
     {
         return $this->steamId;
     }
 
     /**
-     * Sets the users's display name.
+     * Sets the user's display name.
      *
-     * @param string $displayName Users's display name
-     *
-     * @return $this
+     * @param string $displayName User's display name
      */
-    public function setDisplayName($displayName)
+    public function setDisplayName(string $displayName): self
     {
         $this->displayName = $displayName;
 
@@ -199,11 +197,9 @@ class General
     }
 
     /**
-     * Returns the users's display name.
-     *
-     * @return string
+     * Returns the user's display name.
      */
-    public function getDisplayName()
+    public function getDisplayName(): string
     {
         return $this->displayName;
     }
@@ -212,10 +208,8 @@ class General
      * Sets the full URL of the user's Steam community profile.
      *
      * @param string $profileUrl Full URL of the user's Steam community profile.
-     *
-     * @return $this
      */
-    public function setProfileUrl($profileUrl)
+    public function setProfileUrl(string $profileUrl): self
     {
         $this->profileUrl = $profileUrl;
 
@@ -224,10 +218,8 @@ class General
 
     /**
      * Returns the full URL of the user's Steam community profile.
-     *
-     * @return string
      */
-    public function getProfileUrl()
+    public function getProfileUrl(): string
     {
         return $this->profileUrl;
     }
@@ -236,10 +228,8 @@ class General
      * Sets the full URL of the user's 32x32px avatar.
      *
      * @param string $avatar Full URL of the user's 32x32px avatar.
-     *
-     * @return $this
      */
-    public function setAvatar($avatar)
+    public function setAvatar(string $avatar): self
     {
         $this->avatar = $avatar;
 
@@ -248,10 +238,8 @@ class General
 
     /**
      * Returns the full URL of the user's 32x32px avatar.
-     *
-     * @return string
      */
-    public function getAvatar()
+    public function getAvatar(): string
     {
         return $this->avatar;
     }
@@ -260,10 +248,8 @@ class General
      * Sets the full URL of the user's 64x64px avatar.
      *
      * @param string $avatarMedium Full URL of the user's 64x64px avatar.
-     *
-     * @return $this
      */
-    public function setAvatarMedium($avatarMedium)
+    public function setAvatarMedium(string $avatarMedium): self
     {
         $this->avatarMedium = $avatarMedium;
 
@@ -272,22 +258,18 @@ class General
 
     /**
      * Returns the full URL of the user's 64x64px avatar.
-     *
-     * @return string
      */
-    public function getAvatarMedium()
+    public function getAvatarMedium(): string
     {
         return $this->avatarMedium;
     }
 
     /**
-     * Sets the full URL of the users's 184x184px avatar.
+     * Sets the full URL of the user's 184x184px avatar.
      *
-     * @param string $avatarFull Full URL of the users's 184x184px avatar.
-     *
-     * @return $this
+     * @param string $avatarFull Full URL of the user's 184x184px avatar.
      */
-    public function setAvatarFull($avatarFull)
+    public function setAvatarFull(string $avatarFull): self
     {
         $this->avatarFull = $avatarFull;
 
@@ -295,11 +277,9 @@ class General
     }
 
     /**
-     * Returns the full URL of the users's 184x184px avatar.
-     *
-     * @return string
+     * Returns the full URL of the user's 184x184px avatar.
      */
-    public function getAvatarFull()
+    public function getAvatarFull(): string
     {
         return $this->avatarFull;
     }
@@ -308,10 +288,8 @@ class General
      * Sets the user's current status.
      *
      * @param int $personaState User's current status
-     *
-     * @return $this
      */
-    public function setPersonaState($personaState)
+    public function setPersonaState(int $personaState): self
     {
         $this->personaState = $personaState;
 
@@ -322,10 +300,8 @@ class General
      * Returns the user's current status.
      *
      * If the user's profile is private, this will always be "0".
-     *
-     * @return int
      */
-    public function getPersonaState()
+    public function getPersonaState(): int
     {
         return $this->personaState;
     }
@@ -334,15 +310,14 @@ class General
      * Returns the user's current status as human-readable string.
      *
      * If the user's profile is private, this will always be "offline".
-     *
-     * @return string
      */
-    public function getPersonaStateString()
+    public function getPersonaStateString(): string
     {
         $key = $this->getPersonaState();
         if (!array_key_exists($key, self::$personaStateMapping)) {
-            return 'Unknown status: ' . $key;
+            return 'Unknown status: '.$key;
         }
+
         return self::$personaStateMapping[$key];
     }
 
@@ -350,10 +325,8 @@ class General
      * Sets whether the profile is visible or not.
      *
      * @param int $communityVisibilityState Whether the profile is visible or not.
-     *
-     * @return $this
      */
-    public function setCommunityVisibilityState($communityVisibilityState)
+    public function setCommunityVisibilityState(int $communityVisibilityState): self
     {
         $this->communityVisibilityState = $communityVisibilityState;
 
@@ -362,36 +335,31 @@ class General
 
     /**
      * Returns whether the profile is visible or not.
-     *
-     * @return int
      */
-    public function getCommunityVisibilityState()
+    public function getCommunityVisibilityState(): int
     {
         return $this->communityVisibilityState;
     }
 
     /**
      * Returns whether the profile is visible or not as human-readable string.
-     *
-     * @return int
      */
-    public function getCommunityVisibilityStateString()
+    public function getCommunityVisibilityStateString(): string
     {
         $key = $this->getCommunityVisibilityState();
         if (!array_key_exists($key, self::$communityVisibilityStateMapping)) {
-            return 'Unknown profile visibility: ' . $key;
+            return 'Unknown profile visibility: '.$key;
         }
+
         return self::$communityVisibilityStateMapping[$key];
     }
 
     /**
      * Sets if the user has a community profile configured.
      *
-     * @param boolean $profileState If the user has a community profile configured.
-     *
-     * @return $this
+     * @param bool $profileState If the user has a community profile configured.
      */
-    public function setProfileState($profileState)
+    public function setProfileState(bool $profileState): self
     {
         $this->profileState = $profileState;
 
@@ -400,10 +368,8 @@ class General
 
     /**
      * Returns if the user has a community profile configured.
-     *
-     * @return boolean
      */
-    public function getProfileState()
+    public function getProfileState(): bool
     {
         return $this->profileState;
     }
@@ -413,10 +379,8 @@ class General
      *
      * @param null|\DateTime $lastLogoff Last time the user was online as
      *                                   \DateTime object.
-     *
-     * @return $this
      */
-    public function setLastLogoff($lastLogoff)
+    public function setLastLogoff(?\DateTime $lastLogoff): self
     {
         $this->lastLogoff = $lastLogoff;
 
@@ -425,10 +389,8 @@ class General
 
     /**
      * Returns the last time the user was online as \DateTime object.
-     *
-     * @return null|\DateTime
      */
-    public function getLastLogoff()
+    public function getLastLogoff(): ?\DateTime
     {
         return $this->lastLogoff;
     }
@@ -436,11 +398,9 @@ class General
     /**
      * Sets if the profile allows public comments.
      *
-     * @param boolean $commentPermission If the profile allows public comments.
-     *
-     * @return $this
+     * @param bool $commentPermission If the profile allows public comments.
      */
-    public function setCommentPermission($commentPermission)
+    public function setCommentPermission(bool $commentPermission): self
     {
         $this->commentPermission = $commentPermission;
 
@@ -449,33 +409,29 @@ class General
 
     /**
      * Returns if the profile allows public comments.
-     *
-     * @return boolean
      */
-    public function getCommentPermission()
+    public function getCommentPermission(): bool
     {
         return $this->commentPermission;
     }
 
     /**
      * Returns whether the user profile is private or not.
-     *
-     * @return bool
      */
-    public function isPrivateProfile()
+    public function isPrivateProfile(): bool
     {
         $visible = $this->getCommunityVisibilityState();
-        return ($visible !== self::COMMUNITY_VISIBILITY_STATE_PUBLIC);
+
+        return self::COMMUNITY_VISIBILITY_STATE_PUBLIC !== $visible;
     }
 
     /**
      * Returns whether the user is online or not.
-     *
-     * @return bool
      */
-    public function isOnline()
+    public function isOnline(): bool
     {
         $state = $this->getPersonaState();
-        return ($state !== self::PERSONA_STATE_OFFLINE);
+
+        return self::PERSONA_STATE_OFFLINE !== $state;
     }
 }

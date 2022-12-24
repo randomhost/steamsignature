@@ -1,57 +1,61 @@
 <?php
+
+declare(strict_types=1);
+
 namespace randomhost\Steam;
 
 /**
  * Provides methods for retrieving data from the Steam Web API.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
 class API
 {
-    /**
-     * Steam WebAPI Url
-     *
-     * @var string
-     */
-    const URL = 'https://api.steampowered.com';
-
-    /**
-     * Steam WepAPI response format.
-     *
-     * @var string
-     */
-    const FORMAT = 'json';
-
     /**
      * Error code for invalid API responses.
      *
      * @var int
      */
-    const ERROR_BAD_RESPONSE = 502;
+    public const ERROR_BAD_RESPONSE = 502;
 
     /**
      * Error code for API timeout errors.
      *
      * @var int
      */
-    const ERROR_TIMEOUT = 504;
+    public const ERROR_TIMEOUT = 504;
 
     /**
      * Error code for API lookup methods which did not yield any results.
      *
      * @var int
      */
-    const ERROR_NOT_FOUND = 404;
+    public const ERROR_NOT_FOUND = 404;
+
+    /**
+     * Steam WebAPI Url.
+     *
+     * @var string
+     */
+    private const URL = 'https://api.steampowered.com';
+
+    /**
+     * Steam WepAPI response format.
+     *
+     * @var string
+     */
+    private const FORMAT = 'json';
 
     /**
      * Memcached key prefix.
      *
      * @var string
      */
-    const MEMCACHED_KEY_PREFIX = 'PHP_Steam_Signature_';
+    private const MEMCACHED_KEY_PREFIX = 'PHP_Steam_Signature_';
 
     /**
      * Steam Web API key.
@@ -65,7 +69,7 @@ class API
      *
      * @var null|\Memcached
      */
-    protected $memcached = null;
+    protected $memcached;
 
     /**
      * Toggles Memcached usage.
@@ -77,11 +81,11 @@ class API
     /**
      * Constructor for this class.
      *
-     * @param string     $key       Steam WebAPI key.
-     * @param \Memcached $memcached Optional: \Memcached instance to be used for
-     *                              caching data.
+     * @param string          $key       Steam WebAPI key.
+     * @param null|\Memcached $memcached Optional: \Memcached instance to be used
+     *                                   for caching data.
      */
-    public function __construct($key, \Memcached $memcached = null)
+    public function __construct(string $key, ?\Memcached $memcached = null)
     {
         $this->setKey($key);
 
@@ -94,10 +98,8 @@ class API
      * Sets the Steam Web API key.
      *
      * @param string $key Steam Web API key.
-     *
-     * @return $this
      */
-    public function setKey($key)
+    public function setKey(string $key): self
     {
         $this->key = $key;
 
@@ -106,10 +108,8 @@ class API
 
     /**
      * Returns the Steam Web API key.
-     *
-     * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -118,10 +118,8 @@ class API
      * Injects a \Memcached instance to be used for caching data.
      *
      * @param \Memcached $memcached \Memcached instance to be used for caching data.
-     *
-     * @return $this
      */
-    public function setMemcached(\Memcached $memcached)
+    public function setMemcached(\Memcached $memcached): self
     {
         $this->memcached = $memcached;
 
@@ -130,10 +128,8 @@ class API
 
     /**
      * Returns the \Memcached instance to be used for caching data.
-     *
-     * @return \Memcached|null
      */
-    public function getMemcached()
+    public function getMemcached(): ?\Memcached
     {
         return $this->memcached;
     }
@@ -142,22 +138,18 @@ class API
      * Sets whether a given \Memcached instance should be used or not.
      *
      * @param bool $enable true: use Memcached, false: do not use Memcached
-     *
-     * @return $this
      */
-    public function setMemcachedUsage($enable)
+    public function setMemcachedUsage(bool $enable): self
     {
-        $this->memcachedUsage = (bool)$enable;
+        $this->memcachedUsage = $enable;
 
         return $this;
     }
 
     /**
      * Returns whether a given \Memcached instance should be used or not.
-     *
-     * @return boolean
      */
-    public function getMemcachedUsage()
+    public function getMemcachedUsage(): bool
     {
         return $this->memcachedUsage;
     }
@@ -167,13 +159,12 @@ class API
      *
      * @param string $vanityUrl Vanity URL.
      *
-     * @return string
      * @throws \InvalidArgumentException Thrown if the vanity URL was not valid.
-     * @throws \RuntimeException Thrown in case of connection or parsing errors.
+     * @throws \RuntimeException         Thrown in case of connection or parsing errors.
      */
-    public function resolveVanityUrl($vanityUrl)
+    public function resolveVanityUrl(string $vanityUrl): string
     {
-        $mcKey = 'vanityUrl_' . $vanityUrl;
+        $mcKey = 'vanityUrl_'.$vanityUrl;
 
         $steamId = $this->getMemcachedValue($mcKey);
 
@@ -185,11 +176,11 @@ class API
             'ISteamUser',
             'ResolveVanityURL',
             1,
-            array('vanityurl' => $vanityUrl)
+            ['vanityurl' => $vanityUrl]
         );
         $data = $this->request($requestUrl);
         if (!isset($data->steamid)) {
-            if (isset($data->message) && $data->message === 'No match') {
+            if (isset($data->message) && 'No match' === $data->message) {
                 throw new \InvalidArgumentException(
                     sprintf(
                         'The specified profile "%s" could not be found',
@@ -198,16 +189,17 @@ class API
                     self::ERROR_NOT_FOUND
                 );
             }
+
             throw new \RuntimeException(
                 sprintf(
-                    'Steam Web API JSON response does not include a steamid ' .
+                    'Steam Web API JSON response does not include a steamid '.
                     'field: %s',
                     var_export($data, true)
                 ),
                 self::ERROR_BAD_RESPONSE
             );
         }
-        $steamId = (string)$data->steamid;
+        $steamId = (string) $data->steamid;
 
         $this->setMemcachedValue($mcKey, $steamId, 60 * 60 * 24 * 15);
 
@@ -219,13 +211,12 @@ class API
      *
      * @param string $steamId A 64 bit Steam community ID.
      *
-     * @return \stdClass
      * @throws \InvalidArgumentException Thrown if the Steam ID was not valid.
-     * @throws \RuntimeException Thrown in case of connection or parsing errors.
+     * @throws \RuntimeException         Thrown in case of connection or parsing errors.
      */
-    public function fetchPlayerSummary($steamId)
+    public function fetchPlayerSummary(string $steamId): ?\stdClass
     {
-        $mcKey = 'playerSummary_' . $steamId;
+        $mcKey = 'playerSummary_'.$steamId;
 
         $playerSummary = $this->getMemcachedValue($mcKey);
 
@@ -234,7 +225,7 @@ class API
                 'ISteamUser',
                 'GetPlayerSummaries',
                 2,
-                array('steamids' => $steamId)
+                ['steamids' => $steamId]
             );
             $data = $this->request($requestUrl);
             if (empty($data->players[0])) {
@@ -251,6 +242,7 @@ class API
 
             $this->setMemcachedValue($mcKey, $playerSummary, 5 * 60);
         }
+
         return $playerSummary;
     }
 
@@ -258,12 +250,10 @@ class API
      * Appends configured prefixes and returns the Memcached key to be used.
      *
      * @param string $key Non prefixed Memcached key.
-     *
-     * @return string
      */
-    protected function getMemcachedKey($key)
+    protected function getMemcachedKey(string $key): string
     {
-        return self::MEMCACHED_KEY_PREFIX . $key;
+        return self::MEMCACHED_KEY_PREFIX.$key;
     }
 
     /**
@@ -275,7 +265,7 @@ class API
      *
      * @return null|mixed
      */
-    protected function getMemcachedValue($key)
+    protected function getMemcachedValue(string $key)
     {
         if (is_null($this->memcached) || !$this->getMemcachedUsage()) {
             return null;
@@ -283,7 +273,7 @@ class API
 
         $data = $this->memcached->get($this->getMemcachedKey($key));
 
-        if ($this->memcached->getResultCode() !== \Memcached::RES_SUCCESS) {
+        if (\Memcached::RES_SUCCESS !== $this->memcached->getResultCode()) {
             return null;
         }
 
@@ -296,10 +286,8 @@ class API
      * @param string $key  Key under which to store the value.
      * @param mixed  $data Value to store.
      * @param int    $ttl  Expiration time (default: 0).
-     *
-     * @return bool
      */
-    protected function setMemcachedValue($key, $data, $ttl)
+    protected function setMemcachedValue(string $key, $data, int $ttl): bool
     {
         if (is_null($this->memcached) || !$this->getMemcachedUsage()) {
             return true;
@@ -315,15 +303,9 @@ class API
      * @param string $method    Steam WebAPI method name.
      * @param int    $version   Steam WebAPI method version.
      * @param array  $params    Steam WebAPI method parameters.
-     *
-     * @return string
      */
-    protected function buildRequestUrl(
-        $interface,
-        $method,
-        $version,
-        array $params
-    ) {
+    protected function buildRequestUrl(string $interface, string $method, int $version, array $params): string
+    {
         return sprintf(
             '%1$s/%2$s/%3$s/v%4$u/?format=%5$s&key=%6$s&%7$s',
             self::URL,
@@ -337,14 +319,13 @@ class API
     }
 
     /**
-     * Performs a HTTP request with the given URL and returns the result.
+     * Performs an HTTP request with the given URL and returns the result.
      *
      * @param string $url Request URL.
      *
-     * @return \stdClass
      * @throws \RuntimeException Thrown in case of connection or parsing errors.
      */
-    protected function request($url)
+    protected function request(string $url): \stdClass
     {
         $data = @file_get_contents($url);
         if (empty($data)) {
@@ -359,6 +340,7 @@ class API
                 $http_response_header[0],
                 $httpStatus
             );
+
             throw new \RuntimeException(
                 sprintf(
                     'Steam Web API returned HTTP status %u %s',
@@ -383,7 +365,7 @@ class API
         if (!isset($result->response)) {
             throw new \RuntimeException(
                 sprintf(
-                    'Steam Web API JSON response does not include a response ' .
+                    'Steam Web API JSON response does not include a response '.
                     'field: %s',
                     var_export($result, true)
                 ),

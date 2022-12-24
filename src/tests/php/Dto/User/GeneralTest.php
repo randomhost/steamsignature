@@ -1,18 +1,25 @@
 <?php
-namespace randomhost\Steam\Dto\User;
+
+declare(strict_types=1);
+
+namespace randomhost\Steam\Tests\Dto\User;
+
+use PHPUnit\Framework\TestCase;
+use randomhost\Steam\Dto\User\General;
 
 /**
- * Unit test for General
+ * Unit test for {@see General}.
  *
  * @author    Ch'Ih-Yu <chi-yu@web.de>
- * @copyright 2016 random-host.com
- * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @link      http://github.random-host.com/steamsignature/
+ * @copyright 2022 Random-Host.tv
+ * @license   https://opensource.org/licenses/BSD-3-Clause  BSD License (3 Clause)
+ *
+ * @see https://github.random-host.tv
  */
-class GeneralTest extends \PHPUnit_Framework_TestCase
+class GeneralTest extends TestCase
 {
     /**
-     * Tests General::setSteamId() and General::getSteamId().
+     * Tests {@see General::setSteamId()} and {@see General::getSteamId()}.
      */
     public function testSetGetSteamId()
     {
@@ -21,11 +28,11 @@ class GeneralTest extends \PHPUnit_Framework_TestCase
         $general = new General();
 
         $this->assertSame($general, $general->setSteamId($id));
-        $this->assertEquals($id, $general->getSteamId());
+        $this->assertSame($id, $general->getSteamId());
     }
 
     /**
-     * Tests General::setDisplayName() and General::getDisplayName().
+     * Tests {@see General::setDisplayName()} and {@see General::getDisplayName()}.
      */
     public function testSetGetDisplayName()
     {
@@ -34,66 +41,66 @@ class GeneralTest extends \PHPUnit_Framework_TestCase
         $general = new General();
 
         $this->assertSame($general, $general->setDisplayName($displayName));
-        $this->assertEquals($displayName, $general->getDisplayName());
+        $this->assertSame($displayName, $general->getDisplayName());
     }
 
     /**
-     * Tests General::setProfileUrl() and General::getProfileUrl().
+     * Tests {@see General::setProfileUrl()} and {@see General::getProfileUrl()}.
      */
     public function testSetGetProfileUrl()
     {
-        $profileUrl = 'http://steamcommunity.com/id/0815gamer';
+        $profileUrl = 'https://steamcommunity.com/id/0815gamer';
 
         $general = new General();
 
         $this->assertSame($general, $general->setProfileUrl($profileUrl));
-        $this->assertEquals($profileUrl, $general->getProfileUrl());
+        $this->assertSame($profileUrl, $general->getProfileUrl());
     }
 
     /**
-     * Tests General::setAvatar() and General::getAvatar().
+     * Tests {@see General::setAvatar()} and {@see General::getAvatar()}.
      */
     public function testSetGetAvatar()
     {
-        $avatar = 'https://steamcdn-a.akamaihd.net/steamcommunity/public/' .
+        $avatar = 'https://steamcdn-a.akamaihd.net/steamcommunity/public/'.
             'images/avatars/12/1234567890abcdefghijklmnopqrstuvwxyz.jpg';
 
         $general = new General();
 
         $this->assertSame($general, $general->setAvatar($avatar));
-        $this->assertEquals($avatar, $general->getAvatar());
+        $this->assertSame($avatar, $general->getAvatar());
     }
 
     /**
-     * Tests General::setAvatarMedium() and General::getAvatarMedium().
+     * Tests {@see General::setAvatarMedium()} and {@see General::getAvatarMedium()}.
      */
     public function testSetGetAvatarMedium()
     {
-        $avatar = 'https://steamcdn-a.akamaihd.net/steamcommunity/public/' .
+        $avatar = 'https://steamcdn-a.akamaihd.net/steamcommunity/public/'.
             'images/avatars/12/1234567890abcdefghijklmnopqrstuvwxyz_medium.jpg';
 
         $general = new General();
 
         $this->assertSame($general, $general->setAvatarMedium($avatar));
-        $this->assertEquals($avatar, $general->getAvatarMedium());
+        $this->assertSame($avatar, $general->getAvatarMedium());
     }
 
     /**
-     * Tests General::setAvatarFull() and General::getAvatarFull().
+     * Tests {@see General::setAvatarFull()} and {@see General::getAvatarFull()}.
      */
     public function testSetGetAvatarFull()
     {
-        $avatar = 'https://steamcdn-a.akamaihd.net/steamcommunity/public/' .
+        $avatar = 'https://steamcdn-a.akamaihd.net/steamcommunity/public/'.
             'images/avatars/12/1234567890abcdefghijklmnopqrstuvwxyz_full.jpg';
 
         $general = new General();
 
         $this->assertSame($general, $general->setAvatarFull($avatar));
-        $this->assertEquals($avatar, $general->getAvatarFull());
+        $this->assertSame($avatar, $general->getAvatarFull());
     }
 
     /**
-     * Tests General::setPersonaState() and General::getPersonaState().
+     * Tests {@see General::setPersonaState()} and {@see General::getPersonaState()}.
      */
     public function testSetGetPersonaState()
     {
@@ -102,27 +109,27 @@ class GeneralTest extends \PHPUnit_Framework_TestCase
         $general = new General();
 
         $this->assertSame($general, $general->setPersonaState($personaState));
-        $this->assertEquals($personaState, $general->getPersonaState());
+        $this->assertSame($personaState, $general->getPersonaState());
     }
 
     /**
-     * Tests General::getPersonaStateString().
+     * Tests {@see General::getPersonaStateString()}.
      *
      * @param int    $personaState   User's current status.
      * @param string $expectedResult User's current status as human-readable string.
      *
      * @dataProvider providerPersonaStateMappings
      */
-    public function testGetPersonaStateString($personaState, $expectedResult)
+    public function testGetPersonaStateString(int $personaState, string $expectedResult)
     {
         $general = new General();
 
         $this->assertSame($general, $general->setPersonaState($personaState));
-        $this->assertEquals($expectedResult, $general->getPersonaStateString());
+        $this->assertSame($expectedResult, $general->getPersonaStateString());
     }
 
     /**
-     * Tests General::setCommunityVisibilityState() and General::getCommunityVisibilityState().
+     * Tests {@see General::setCommunityVisibilityState()} and {@see General::getCommunityVisibilityState()}.
      */
     public function testSetGetCommunityVisibilityState()
     {
@@ -134,51 +141,47 @@ class GeneralTest extends \PHPUnit_Framework_TestCase
             $general,
             $general->setCommunityVisibilityState($visibilityState)
         );
-        $this->assertEquals(
+        $this->assertSame(
             $visibilityState,
             $general->getCommunityVisibilityState()
         );
     }
 
     /**
-     * Tests General::getCommunityVisibilityStateString().
+     * Tests {@see General::getCommunityVisibilityStateString()}.
      *
      * @param int    $visibilityState Whether the profile is visible or not.
      * @param string $expectedResult  Whether the profile is visible or not as human-readable string.
      *
      * @dataProvider providerCommunityVisibilityStateMapping
      */
-    public function testGetCommunityVisibilityStateString(
-        $visibilityState,
-        $expectedResult
-    ) {
+    public function testGetCommunityVisibilityStateString(int $visibilityState, string $expectedResult)
+    {
         $general = new General();
 
         $this->assertSame(
             $general,
             $general->setCommunityVisibilityState($visibilityState)
         );
-        $this->assertEquals(
+        $this->assertSame(
             $expectedResult,
             $general->getCommunityVisibilityStateString()
         );
     }
 
     /**
-     * Tests General::setProfileState() and General::getProfileState().
+     * Tests {@see General::setProfileState()} and {@see General::getProfileState()}.
      */
     public function testSetGetProfileState()
     {
-        $profileState = true;
-
         $general = new General();
 
-        $this->assertSame($general, $general->setProfileState($profileState));
-        $this->assertEquals($profileState, $general->getProfileState());
+        $this->assertSame($general, $general->setProfileState(true));
+        $this->assertTrue($general->getProfileState());
     }
 
     /**
-     * Tests General::setLastLogoff() and General::getLastLogoff().
+     * Tests {@see General::setLastLogoff()} and {@see General::getLastLogoff()}.
      */
     public function testSetGetLastLogoff()
     {
@@ -191,26 +194,21 @@ class GeneralTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests General::setCommentPermission() and General::getCommentPermission().
+     * Tests {@see General::setCommentPermission()} and {@see General::getCommentPermission()}.
      */
     public function testSetGetCommentPermission()
     {
-        $commentPermission = true;
-
         $general = new General();
 
         $this->assertSame(
             $general,
-            $general->setCommentPermission($commentPermission)
+            $general->setCommentPermission(true)
         );
-        $this->assertEquals(
-            $commentPermission,
-            $general->getCommentPermission()
-        );
+        $this->assertTrue($general->getCommentPermission());
     }
 
     /**
-     * Tests General::isPrivateProfile().
+     * Tests {@see General::isPrivateProfile()}.
      */
     public function testIsPrivateProfile()
     {
@@ -234,53 +232,54 @@ class GeneralTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests General::isOnline().
+     * Tests {@see General::isOnline()}.
      *
      * @param int $personaState User's current status.
      *
      * @dataProvider providerPersonaStateMappings
      */
-    public function testIsOnline($personaState)
+    public function testIsOnline(int $personaState)
     {
         $general = new General();
 
         $this->assertSame($general, $general->setPersonaState($personaState));
-        $this->assertEquals(
-            $personaState !== General::PERSONA_STATE_OFFLINE,
+        $this->assertSame(
+            General::PERSONA_STATE_OFFLINE !== $personaState,
             $general->isOnline()
         );
     }
 
     /**
      * Data provider for persona state mappings.
-     *
-     * @return array
      */
-    public function providerPersonaStateMappings()
+    public function providerPersonaStateMappings(): \Generator
     {
-        return array(
-            array(General::PERSONA_STATE_OFFLINE, 'offline'),
-            array(General::PERSONA_STATE_ONLINE, 'online'),
-            array(General::PERSONA_STATE_BUSY, 'busy'),
-            array(General::PERSONA_STATE_AWAY, 'away'),
-            array(General::PERSONA_STATE_SNOOZE, 'snooze'),
-            array(General::PERSONA_STATE_LOOKING_TO_TRADE, 'looking to trade'),
-            array(General::PERSONA_STATE_LOOKING_TO_PLAY, 'looking to play'),
-            array(-1, 'Unknown status: -1')
-        );
+        yield [General::PERSONA_STATE_OFFLINE, 'offline'];
+
+        yield [General::PERSONA_STATE_ONLINE, 'online'];
+
+        yield [General::PERSONA_STATE_BUSY, 'busy'];
+
+        yield [General::PERSONA_STATE_AWAY, 'away'];
+
+        yield [General::PERSONA_STATE_SNOOZE, 'snooze'];
+
+        yield [General::PERSONA_STATE_LOOKING_TO_TRADE, 'looking to trade'];
+
+        yield [General::PERSONA_STATE_LOOKING_TO_PLAY, 'looking to play'];
+
+        yield [-1, 'Unknown status: -1'];
     }
 
     /**
      * Data provider for community visibility state mappings.
-     *
-     * @return array
      */
-    public function providerCommunityVisibilityStateMapping()
+    public function providerCommunityVisibilityStateMapping(): \Generator
     {
-        return array(
-            array(General::COMMUNITY_VISIBILITY_STATE_PRIVATE, 'private'),
-            array(General::COMMUNITY_VISIBILITY_STATE_PUBLIC, 'public'),
-            array(-1, 'Unknown profile visibility: -1')
-        );
+        yield [General::COMMUNITY_VISIBILITY_STATE_PRIVATE, 'private'];
+
+        yield [General::COMMUNITY_VISIBILITY_STATE_PUBLIC, 'public'];
+
+        yield [-1, 'Unknown profile visibility: -1'];
     }
 }
