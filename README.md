@@ -92,7 +92,7 @@ folder.
 
 ## 4. License
 
-See LICENSE.txt for full license details.
+See [LICENSE.txt](LICENSE.txt) for full license details.
 
 
 [1]: https://github.com/randomhost/steamsignature/actions/workflows/php.yml/badge.svg
