@@ -311,7 +311,7 @@ class API
             self::URL,
             $interface,
             $method,
-            str_pad($version, 4, '0', STR_PAD_LEFT),
+            str_pad((string) $version, 4, '0', STR_PAD_LEFT),
             self::FORMAT,
             $this->key,
             http_build_query($params)
