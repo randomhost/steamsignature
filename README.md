@@ -5,8 +5,10 @@
 <!-- TOC -->
 * [1. Purpose](#1-purpose)
 * [2. Example](#2-example)
-* [3. Usage](#3-usage)
-* [4. License](#4-license)
+* [3. Requirements](#3-requirements)
+* [4. Installation](#4-installation)
+* [5. Usage](#5-usage)
+* [6. License](#6-license)
 <!-- TOC -->
 
 ## 1. Purpose
@@ -24,7 +26,37 @@ client if this is supported by the game.
 
 [![Example Signature][5]][6]
 
-## 3. Usage
+## 3. Requirements
+
+* PHP 8.x
+* `mbstring` extension for handling international characters and emojis
+* `GD` extension for rendering the images
+* [Composer][7]
+* basic knowledge of executing shell commands on a server
+
+**Note:** The only **officially** supported way to install this package is via
+Composer. However, it is theoretically possible to install PHP 8 and Composer
+on a local computer, run the installation there and then upload the `vendor`
+folder created by Composer to the server, in case shell access is not available.
+
+## 4. Installation
+
+**Important:** This package uses the [Composer][7] dependency manager for
+PHP to check system requirements and to install package dependencies. Please
+make sure it is installed before trying to use this package.
+
+The following example assumes that your web server is running under the user
+account `www-data`, that `composer` is installed into the system `$PATH`, and
+that you have a working `sudo` setup to run shell commands as a different user.
+
+In this case, you simply have to run this command within the same directory
+which contains this `README.md` on your server:
+
+```bash
+sudo -u www-data composer install
+```
+
+## 5. Usage
 
 A basic approach at using this package could look like this:
 
@@ -62,7 +94,7 @@ $signature->getLinkTarget();
 The example above should be mostly self-explanatory.
 
 The `API` class must be initialized with a personalized API key. You can obtain
-your API key from the [Steam developer website][7].
+your API key from the [Steam developer website][8].
 
 The `API` class is a very limited implementation of the Steam Web-API and is not
 supposed to be used directly, except for one method:
@@ -90,7 +122,7 @@ The `Signature` class provides two public methods:
 An example implementation of this script can be found in the [`src/www/`](src/www)
 folder.
 
-## 4. License
+## 6. License
 
 See [LICENSE.txt](LICENSE.txt) for full license details.
 
@@ -101,4 +133,5 @@ See [LICENSE.txt](LICENSE.txt) for full license details.
 [4]: https://partner.steamgames.com/documentation/community_data
 [5]: src/data/images/example.png
 [6]: https://steamcommunity.com/id/randomhosttv
-[7]: http://steamcommunity.com/dev
+[7]: https://getcomposer.org
+[8]: http://steamcommunity.com/dev
