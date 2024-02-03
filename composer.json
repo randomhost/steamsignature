@@ -20,7 +20,7 @@
         }
     },
     "require": {
-        "php": ">=7.3.0",
+        "php": "~7.3",
         "randomhost/image": "~2.0",
         "ext-mbstring": "*"
     },
