@@ -17,38 +17,28 @@ class Restricted
 {
     /**
      * Player's "Real Name".
-     *
-     * @var string
      */
-    protected $realName = '';
+    protected string $realName = '';
 
     /**
      * Player's primary group ID.
-     *
-     * @var string
      */
-    protected $primaryGroupId = '';
+    protected string $primaryGroupId = '';
 
     /**
      * Time the player's account was created.
-     *
-     * @var null|\DateTime
      */
-    protected $timeCreated;
+    protected ?\DateTime $timeCreated = null;
 
     /**
      * Game data of the game the user is currently playing.
-     *
-     * @var null|Game
      */
-    protected $gameData;
+    protected ?Game $gameData = null;
 
     /**
      * Player's location data.
-     *
-     * @var null|Location
      */
-    protected $locationData;
+    protected ?Location $locationData = null;
 
     /**
      * Sets the player's "Real Name".
@@ -93,7 +83,7 @@ class Restricted
     /**
      * Sets the time the player's account was created.
      *
-     * @param null|\DateTime $timeCreated Time the player's account was created.
+     * @param \DateTime $timeCreated Time the player's account was created.
      */
     public function setTimeCreated(\DateTime $timeCreated): self
     {
@@ -113,7 +103,7 @@ class Restricted
     /**
      * Sets the game data of the game the user is currently playing.
      *
-     * @param null|Game $gameData Game data of the game the user is currently playing.
+     * @param Game $gameData Game data of the game the user is currently playing.
      */
     public function setGameData(Game $gameData): self
     {
@@ -133,7 +123,7 @@ class Restricted
     /**
      * Sets the player's location data.
      *
-     * @param null|Location $locationData Player's location data.
+     * @param Location $locationData Player's location data.
      */
     public function setLocationData(Location $locationData): self
     {

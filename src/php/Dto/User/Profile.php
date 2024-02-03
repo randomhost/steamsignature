@@ -17,17 +17,13 @@ class Profile
 {
     /**
      * General instance.
-     *
-     * @var null|General
      */
-    protected $dataUserGeneral;
+    protected ?General $dataUserGeneral = null;
 
     /**
      * Restricted instance.
-     *
-     * @var null|Restricted
      */
-    protected $dataUserRestricted;
+    protected ?Restricted $dataUserRestricted = null;
 
     /**
      * Constructor for this class.

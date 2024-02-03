@@ -17,24 +17,18 @@ class Location
 {
     /**
      * User's country of residence (ISO country code).
-     *
-     * @var string
      */
-    protected $countryCode = '';
+    protected string $countryCode = '';
 
     /**
      * User's state of residence.
-     *
-     * @var string
      */
-    protected $stateCode = '';
+    protected string $stateCode = '';
 
     /**
      * User's city of residence.
-     *
-     * @var int
      */
-    protected $cityId = 0;
+    protected int $cityId = 0;
 
     /**
      * Sets the user's country of residence (ISO country code).

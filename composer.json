@@ -16,12 +16,12 @@
     ],
     "config": {
         "platform": {
-            "php": "7.3.31"
+            "php": "8.2.7"
         }
     },
     "require": {
-        "php": "~7.3",
-        "randomhost/image": "~2.0",
+        "php": "~8.0",
+        "randomhost/image": "~3.0-beta",
         "ext-mbstring": "*"
     },
     "require-dev": {

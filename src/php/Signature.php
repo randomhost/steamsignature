@@ -22,129 +22,95 @@ class Signature
 {
     /**
      * Full image directory path.
-     *
-     * @var string
      */
-    protected $imageDir = '';
+    protected string $imageDir = '';
 
     /**
      * Full fonts directory path.
-     *
-     * @var string
      */
-    protected $fontsDir = '';
+    protected string $fontsDir = '';
 
     /**
      * Full cache directory path.
-     *
-     * @var string
      */
-    protected $cacheDir = '';
+    protected string $cacheDir = '';
 
     /**
      * Steam\ID object.
-     *
-     * @var Profile
      */
-    protected $profile;
+    protected Profile $profile;
 
     /**
      * error code.
      *
      * @var int
      */
-    protected $errorCode;
+    protected mixed $errorCode;
 
     /**
      * error message.
-     *
-     * @var string
      */
-    protected $errorMessage;
+    protected string $errorMessage;
 
     /**
      * Output image instance.
-     *
-     * @var Image
      */
-    protected $outputImage;
+    protected Image $outputImage;
 
     /**
      * Background image instance.
-     *
-     * @var Image
      */
-    protected $backgroundImage;
+    protected Image $backgroundImage;
 
     /**
      * Avatar image instance.
-     *
-     * @var Image
      */
-    protected $avatarImage;
+    protected Image $avatarImage;
 
     /**
      * Box image instance.
-     *
-     * @var Image
      */
-    protected $boxImage;
+    protected Image $boxImage;
 
     /**
      * Connect image instance.
-     *
-     * @var Image
      */
-    protected $connectImage;
+    protected Image $connectImage;
 
     /**
      * Text color for rendering header texts.
-     *
-     * @var Color
      */
-    protected $textColorHeader;
+    protected Color $textColorHeader;
 
     /**
      * Text color for rendering content texts.
-     *
-     * @var Color
      */
-    protected $textColorContent;
+    protected Color $textColorContent;
 
     /**
      * The x-ordinate for rendering texts.
-     *
-     * @var float
      */
-    protected $textXPosition = 8.0;
+    protected int $textXPosition = 8;
 
     /**
      * The name of the box image which should be used.
-     *
-     * @var string
      */
-    protected $boxImageName = '';
+    protected string $boxImageName = '';
 
     /**
      * The header text to be rendered onto the image.
-     *
-     * @var string
      */
-    protected $headerText = '';
+    protected string $headerText = '';
 
     /**
      * The first line of text content to be rendered onto the image.
-     *
-     * @var string
      */
-    protected $statusText1 = '';
+    protected string $statusText1 = '';
 
     /**
      * The second line of text content to be rendered onto the image.
-     *
-     * @var string
      */
-    protected $statusText2 = '';
+    protected string $statusText2 = '';
 
     /**
      * Constructor for this class.
@@ -175,7 +141,7 @@ class Signature
             $this->prepareErrorMessage();
 
             if ($api::ERROR_TIMEOUT === $this->errorCode) {
-                $this->statusText1 = 'Couldn\'t connect to Steam';
+                $this->statusText1 = "Couldn't connect to Steam";
                 $this->statusText2 = 'Please try again later';
                 trigger_error($this->errorMessage, E_USER_WARNING);
             } elseif (!empty($this->errorCode)) {

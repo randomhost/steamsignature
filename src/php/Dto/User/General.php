@@ -41,77 +41,63 @@ class General
      *
      * @var array
      */
-    protected static $personaStateMapping
-        = [
-            self::PERSONA_STATE_OFFLINE => 'offline',
-            self::PERSONA_STATE_ONLINE => 'online',
-            self::PERSONA_STATE_BUSY => 'busy',
-            self::PERSONA_STATE_AWAY => 'away',
-            self::PERSONA_STATE_SNOOZE => 'snooze',
-            self::PERSONA_STATE_LOOKING_TO_TRADE => 'looking to trade',
-            self::PERSONA_STATE_LOOKING_TO_PLAY => 'looking to play',
-        ];
+    protected const PERSONA_STATE_MAPPING = [
+        self::PERSONA_STATE_OFFLINE => 'offline',
+        self::PERSONA_STATE_ONLINE => 'online',
+        self::PERSONA_STATE_BUSY => 'busy',
+        self::PERSONA_STATE_AWAY => 'away',
+        self::PERSONA_STATE_SNOOZE => 'snooze',
+        self::PERSONA_STATE_LOOKING_TO_TRADE => 'looking to trade',
+        self::PERSONA_STATE_LOOKING_TO_PLAY => 'looking to play',
+    ];
 
     /**
      * Mapping of community visibility state integer values to strings.
      *
      * @var array
      */
-    protected static $communityVisibilityStateMapping
-        = [
-            self::COMMUNITY_VISIBILITY_STATE_PRIVATE => 'private',
-            self::COMMUNITY_VISIBILITY_STATE_PUBLIC => 'public',
-        ];
+    protected const COMMUNITY_VISIBILITY_STATE_MAPPING = [
+        self::COMMUNITY_VISIBILITY_STATE_PRIVATE => 'private',
+        self::COMMUNITY_VISIBILITY_STATE_PUBLIC => 'public',
+    ];
 
     /**
      * 64bit SteamID of the user.
      *
      * This is of type string to be compatible with 32-bit systems
-     *
-     * @var string
      */
-    protected $steamId = '';
+    protected string $steamId = '';
 
     /**
      * User's display name.
-     *
-     * @var string
      */
-    protected $displayName = '';
+    protected string $displayName = '';
 
     /**
      * Full URL of the user's Steam community profile.
-     *
-     * @var string
      */
-    protected $profileUrl = '';
+    protected string $profileUrl = '';
 
     /**
      * Full URL of the user's 32x32px avatar.
      *
      * If the user hasn't configured an avatar, this will be the default ? avatar.
-     *
-     * @var string
      */
-    protected $avatar = '';
+    protected string $avatar = '';
 
     /**
      * Full URL of the user's 64x64px avatar.
      *
      * If the user hasn't configured an avatar, this will be the default ? avatar.
-     *
-     * @var string
      */
-    protected $avatarMedium = '';
+    protected string $avatarMedium = '';
 
     /**
      * Full URL of the user's 184x184px avatar.
      *
      * If the user hasn't configured an avatar, this will be the default ? avatar.
-     *
-     * @var string
      */
-    protected $avatarFull = '';
+    protected string $avatarFull = '';
 
     /**
      * User's current status.
@@ -125,10 +111,8 @@ class General
      * 6 - looking to play
      *
      * If the user's profile is private, this will always be "0".
-     *
-     * @var int
      */
-    protected $personaState = 0;
+    protected int $personaState = 0;
 
     /**
      * This represents whether the profile is visible or not.
@@ -138,31 +122,23 @@ class General
      *
      * 1 - profile is not visible (Private, Friends Only, etc.)
      * 3 - profile is "Public"
-     *
-     * @var int
      */
-    protected $communityVisibilityState = 0;
+    protected int $communityVisibilityState = 0;
 
     /**
      * Indicates if the user has a community profile configured.
-     *
-     * @var bool
      */
-    protected $profileState = false;
+    protected bool $profileState = false;
 
     /**
      * Last time the user was online as \DateTime object.
-     *
-     * @var null|\DateTime
      */
-    protected $lastLogoff;
+    protected ?\DateTime $lastLogoff;
 
     /**
      * Indicates if the profile allows public comments.
-     *
-     * @var bool
      */
-    protected $commentPermission = false;
+    protected bool $commentPermission = false;
 
     /**
      * Sets the 64bit SteamID of the user.
@@ -314,11 +290,11 @@ class General
     public function getPersonaStateString(): string
     {
         $key = $this->getPersonaState();
-        if (!array_key_exists($key, self::$personaStateMapping)) {
+        if (!array_key_exists($key, self::PERSONA_STATE_MAPPING)) {
             return 'Unknown status: '.$key;
         }
 
-        return self::$personaStateMapping[$key];
+        return self::PERSONA_STATE_MAPPING[$key];
     }
 
     /**
@@ -347,11 +323,11 @@ class General
     public function getCommunityVisibilityStateString(): string
     {
         $key = $this->getCommunityVisibilityState();
-        if (!array_key_exists($key, self::$communityVisibilityStateMapping)) {
+        if (!array_key_exists($key, self::COMMUNITY_VISIBILITY_STATE_MAPPING)) {
             return 'Unknown profile visibility: '.$key;
         }
 
-        return self::$communityVisibilityStateMapping[$key];
+        return self::COMMUNITY_VISIBILITY_STATE_MAPPING[$key];
     }
 
     /**

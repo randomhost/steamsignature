@@ -17,26 +17,20 @@ class Game
 {
     /**
      * Game ID of the game the user is currently playing.
-     *
-     * @var string
      */
-    protected $id = '0';
+    protected string $id = '0';
 
     /**
      * IP and port of the game server the user is currently playing on.
-     *
-     * @var string
      */
-    protected $serverIp = '0.0.0.0:0';
+    protected string $serverIp = '0.0.0.0:0';
 
     /**
      * Name of the game the user is playing.
      *
      * This may be the name of a non-Steam game shortcut.
-     *
-     * @var string
      */
-    protected $extraInfo = '';
+    protected string $extraInfo = '';
 
     /**
      * Sets the game ID of the game the user is currently playing.

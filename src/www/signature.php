@@ -33,7 +33,7 @@ try {
     // init a \Memcached instance for caching Steam user data
     $memcached = null;
     if (class_exists('\Memcached')) {
-        $memcached = new \Memcached();
+        $memcached = new Memcached();
         $memcached->resetServerList();
         $memcached->addServer('localhost', 11211);
     }
@@ -44,7 +44,7 @@ try {
     $requiredParams = ['id', 'action'];
     foreach ($requiredParams as $param) {
         if (empty($_GET[$param])) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 "Missing required request parameter \"{$param}\""
             );
         }
@@ -73,16 +73,10 @@ try {
                 $params
             );
         } else {
-            switch ($action) {
-                case 'go':
-                    $params = $steamId.'/go';
-
-                    break;
-
-                case 'img':
-                default:
-                    $params = $steamId.'.png';
-            }
+            $params = match ($action) {
+                'go' => $steamId.'/go',
+                default => $steamId.'.png',
+            };
 
             $url = sprintf(
                 'http%s://%s%s/profilesig/%s',
@@ -112,7 +106,7 @@ try {
 
             break;
     }
-} catch (\InvalidArgumentException $e) {
+} catch (InvalidArgumentException $e) {
     http_response_code(400);
     if (!headers_sent()) {
         header('Retry-After: 120');
@@ -120,7 +114,7 @@ try {
         header('Content-Type: text/plain');
         echo '400 Bad Request';
     }
-} catch (\Exception $e) {
+} catch (Exception $e) {
     http_response_code(503);
     if (!headers_sent()) {
         header('Retry-After: 120');

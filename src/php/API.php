@@ -59,24 +59,18 @@ class API
 
     /**
      * Steam Web API key.
-     *
-     * @var string
      */
-    protected $key = '';
+    protected string $key = '';
 
     /**
      * \Memcached instance.
-     *
-     * @var null|\Memcached
      */
-    protected $memcached;
+    protected ?\Memcached $memcached = null;
 
     /**
      * Toggles Memcached usage.
-     *
-     * @var bool
      */
-    protected $memcachedUsage = true;
+    protected bool $memcachedUsage = true;
 
     /**
      * Constructor for this class.
@@ -262,10 +256,8 @@ class API
      * If no data is stored, null is returned.
      *
      * @param string $key Key of the item to retrieve.
-     *
-     * @return null|mixed
      */
-    protected function getMemcachedValue(string $key)
+    protected function getMemcachedValue(string $key): mixed
     {
         if (is_null($this->memcached) || !$this->getMemcachedUsage()) {
             return null;
@@ -287,7 +279,7 @@ class API
      * @param mixed  $data Value to store.
      * @param int    $ttl  Expiration time (default: 0).
      */
-    protected function setMemcachedValue(string $key, $data, int $ttl): bool
+    protected function setMemcachedValue(string $key, mixed $data, int $ttl): bool
     {
         if (is_null($this->memcached) || !$this->getMemcachedUsage()) {
             return true;
